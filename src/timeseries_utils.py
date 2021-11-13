@@ -60,4 +60,24 @@ def plot_results(
     plt.plot(prediction,label="Predicted")
     plt.legend(loc = 'upper left')
     plt.show()
+
+
+def eval_darts_model(
+    model,
+    ts,
+    val,
+    error_function,
+):
+    """Evaluates our darts model based on the metric provided
     
+    :param model: Model to evaluate
+    :param ts: TimeSeries object with the data to train our model
+    :parma val: Dataset to evaluate our model
+    :param error_function: Function to evaluate upon
+    :return: Value of the error
+    """
+    model.fit(ts)
+    prediction = model.predict(len(val))
+    error = error_function(val, prediction)
+
+    print(f"The error of the model is: {error}")
